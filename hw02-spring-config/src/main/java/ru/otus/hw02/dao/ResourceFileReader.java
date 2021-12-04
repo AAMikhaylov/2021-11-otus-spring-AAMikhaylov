@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 public class ResourceFileReader implements FileReader {
     private final String fileName;
 
-    public ResourceFileReader(@Value("${testing.csvFile}") String fileName) {
+    public ResourceFileReader(@Value("${quiz.csvFile}") String fileName) {
         this.fileName = fileName;
     }
 
