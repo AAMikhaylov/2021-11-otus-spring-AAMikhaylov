@@ -1,0 +1,8 @@
+spring:
+  messages:
+    fallback-to-system-locale: false
+    basename: i18n/messages_test
+application:
+  csvFile: /i18n/questions_test.csv
+  scorePass: 3
+  locale: ru-RU
