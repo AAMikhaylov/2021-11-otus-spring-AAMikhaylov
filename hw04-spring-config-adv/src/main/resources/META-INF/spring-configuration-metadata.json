@@ -1,0 +1,20 @@
+{
+  "properties": [
+    {
+      "name": "application.csvFile",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "application.scorePass",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "application.locale",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "spring.shell.interactive.enabled",
+      "type": "java.lang.String"
+    }
+  ]
+}
