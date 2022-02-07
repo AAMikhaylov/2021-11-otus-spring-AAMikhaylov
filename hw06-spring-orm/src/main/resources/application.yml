@@ -1,0 +1,34 @@
+spring:
+  main:
+    allow-circular-references: true
+  messages:
+    fallback-to-system-locale: false
+  datasource:
+    url: jdbc:h2:mem:librarydb
+  sql:
+    init:
+      mode: always
+      data-locations: data.sql
+      schema-locations: schema.sql
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+  h2:
+    console:
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  dao:
+    exceptiontranslation:
+      enabled: true
+application:
+  #locale: en-US
+  locale: ru-RU
+logging:
+  level:
+    ROOT: off
+
+
+

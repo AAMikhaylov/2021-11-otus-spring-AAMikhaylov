@@ -14,6 +14,9 @@
 **/gradle/
 **/.gradle/
 
+#logs
+**.log
+
 #common
 **/out
 **.class
