@@ -9,9 +9,11 @@ import ru.otus.hw07.models.Comment;
 import java.util.List;
 import java.util.Optional;
 
-public interface CommentRepository  extends JpaRepository<Comment, Long> {
-    @EntityGraph(attributePaths = {"book","book.author"})
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+    @EntityGraph(attributePaths = {"book", "book.author"})
     List<Comment> findAll();
+
+    List<Comment> findAllByBookId(long bookId);
 
 
 }

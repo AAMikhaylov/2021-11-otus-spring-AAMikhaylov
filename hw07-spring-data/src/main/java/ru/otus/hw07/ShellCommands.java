@@ -94,6 +94,12 @@ public class ShellCommands {
         commentLibraryService.outputAllComments();
     }
 
+    @ShellMethod(value = "Read all comments about the book", key = {"rcb"})
+    void showBookComments() {
+        commentLibraryService.outputCommentByBook();
+    }
+
+
     @ShellMethod(value = "Read comment by id", key = {"rci"})
     void showCommentById() {
         commentLibraryService.outputCommentById();

@@ -69,6 +69,20 @@ class CommentServiceImplTest {
         assertThat(actualCommentOpt.orElseThrow(NoSuchElementException::new)).usingRecursiveComparison().isEqualTo(expectedComment);
     }
 
+
+    @Test
+    @DisplayName("Возвращать ожидаемые комментарии по ID книги")
+    void getByBookIdTestSuccess() {
+        val book = em.find(Book.class, BOOK_ID_FOR_COMMENT);
+        val actualBookComments = commentService.findAllByBookId(BOOK_ID_FOR_COMMENT);
+        assertThat(actualBookComments)
+                .hasSize(3)
+                .allMatch(c -> List.of("User18", "User19", "User20").contains(c.getUserName()))
+                .allMatch(c -> List.of("Комментарий 1 к книге \"Евгений Онегин\"", "Комментарий 2 к книге \"Евгений Онегин\"", "Комментарий 3 к книге \"Евгений Онегин\"").contains(c.getContent()))
+                .allMatch(c -> c.getBook() != null)
+                .allMatch(c -> c.getId() != 0L);
+    }
+
     @Test
     @DisplayName("Возвращать список комментариев c полной информацией")
     void getAllTest() {

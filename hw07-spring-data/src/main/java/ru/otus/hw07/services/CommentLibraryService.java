@@ -25,6 +25,21 @@ public class CommentLibraryService {
         }
     }
 
+    public void outputCommentByBook() {
+        try {
+            ioMessageService.writeLocal("messages.comment.readByBook.title");
+            val bookOpt = bookLibraryService.selectBook(true);
+            if (bookOpt.isEmpty()) {
+                return;
+            }
+            val comments = commentService.findAllByBookId(bookOpt.get().getId());
+            comments.forEach(this::writeComment);
+
+        } catch (Exception e) {
+            ioMessageService.write(String.format("%s: %s\n", e.getClass().getSimpleName(), e.getMessage()));
+        }
+    }
+
     public void outputCommentById() {
 
         try {
