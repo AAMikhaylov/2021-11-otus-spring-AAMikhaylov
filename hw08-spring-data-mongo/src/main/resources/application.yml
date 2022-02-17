@@ -1,0 +1,22 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: librarydb
+  main:
+    allow-circular-references: true
+  messages:
+    fallback-to-system-locale: false
+application:
+  #locale: en-US
+  locale: ru-RU
+mongock:
+  runner-type: InitializingBean
+  change-logs-scan-package:
+    - ru.otus.hw08.changelogs
+logging:
+  level:
+    ROOT: info
+
+

@@ -1,0 +1,33 @@
+spring:
+  main:
+    allow-circular-references: true
+  messages:
+    fallback-to-system-locale: false
+  shell:
+    interactive:
+      enabled: false
+  mongodb:
+    embedded:
+      version: 3.5.5
+  data:
+    mongodb:
+      port: 0
+      database: testLibrary
+mongock:
+  runner-type: InitializingBean
+  change-logs-scan-package:
+    - ru.otus.hw08.changelogs
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
+  enabled: false
+  test-enabled: false
+application:
+  locale: en-US
+logging:
+  level:
+    ROOT: error
+
+
+
