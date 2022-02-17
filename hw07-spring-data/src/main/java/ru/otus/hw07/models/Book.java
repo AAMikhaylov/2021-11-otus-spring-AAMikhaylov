@@ -3,7 +3,6 @@ package ru.otus.hw07.models;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.springframework.data.jpa.repository.EntityGraph;
 
 import javax.persistence.*;
 import java.util.List;

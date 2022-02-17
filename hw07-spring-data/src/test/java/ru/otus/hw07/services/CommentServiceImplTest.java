@@ -13,7 +13,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import ru.otus.hw07.models.Book;
 import ru.otus.hw07.models.Comment;
 
-import javax.persistence.PersistenceException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
