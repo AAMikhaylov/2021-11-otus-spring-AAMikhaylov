@@ -15,7 +15,4 @@ public interface CommentService {
 
     List<Comment> findAll();
 
-    List<Comment> findAllByBookId(long bookId);
-
-
 }

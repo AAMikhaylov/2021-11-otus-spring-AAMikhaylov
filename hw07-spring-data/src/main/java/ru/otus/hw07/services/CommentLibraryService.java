@@ -28,11 +28,11 @@ public class CommentLibraryService {
     public void outputCommentByBook() {
         try {
             ioMessageService.writeLocal("messages.comment.readByBook.title");
-            val bookOpt = bookLibraryService.selectBook(true);
+            val bookOpt = bookLibraryService.selectBook(false);
             if (bookOpt.isEmpty()) {
                 return;
             }
-            val comments = commentService.findAllByBookId(bookOpt.get().getId());
+            val comments = bookOpt.get().getComments();
             comments.forEach(this::writeComment);
 
         } catch (Exception e) {
