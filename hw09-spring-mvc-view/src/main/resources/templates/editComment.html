@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Комментарии в библиотеке</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="index.html">
+                <div class="menuItem"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="authors.html">
+                <div class="menuItem"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="genres.html">
+                <div class="menuItem"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="comments.html">
+                <div class="menuItemSel"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <h2 th:text="${comment.id==0?'Добавление комментария':'Редактирование комментария'}">
+                    Добавление/Редактирование
+                    комментария</h2>
+            </div>
+            <form name="comment" th:action="'/saveComment'" action="comments.html" method="post" th:object="${comment}">
+                <div class="listElem">
+                    <input type="hidden" name="id" th:value="*{id}" value="1">
+                    <input type="hidden" name="book" th:value="*{book.id}" value="1">
+                    <table class="listElem">
+                        <tr th:if="${comment.id}!=0">
+                            <th>ID:</th>
+                            <td th:text="${comment.id}">10</td>
+                        </tr>
+                        <tr>
+                            <th><label for="id-userName">Пользователь:</label></th>
+                            <td>
+                                <input type="text" id="id-userName" name="userName" size="25" th:value=" *{userName}"
+                                       value="Иванов">
+                                <ul class="error" th:if="${#fields.hasErrors('userName')}">
+                                    <li th:each="err: ${#fields.errors('userName')}" th:text="${err}">
+                                        Имя пользователя не должно быть пустым
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="id-content">Комментарий:</label></th>
+                            <td>
+                                <textarea id="id-content" name="content" cols="95" rows="12"
+                                          th:text="*{content}">Комментарий к книге "Мастер и Маргарита"
+                                </textarea>
+                                <ul class="error" th:if="${#fields.hasErrors('content')}">
+                                    <li th:each="err: ${#fields.errors('content')}" th:text="${err}">
+                                        Комментарий не должен быть пустым
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="padding-left: 0; padding-top:10px; float: left">
+                    <input type="submit" value="Сохранить">
+                </div>
+                <div style="padding-left: 5px;padding-top:10px; float: left">
+                    <input type="button" value="Отмена" onclick="history.back()">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
