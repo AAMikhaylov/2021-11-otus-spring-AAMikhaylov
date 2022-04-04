@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Авторы в библиотеке</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+    <script src="../static/loadLists.js" th:src="@{loadLists.js}"></script>
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="index.html">
+                <div class="menuItem"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="authors.html">
+                <div class="menuItemSel"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="genres.html">
+                <div class="menuItem"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="comments.html">
+                <div class="menuItem"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <h2>Авторы</h2>
+                <div class="contextMenuItem">
+                    <a class="contextMenuHref" th:href="'/editAuthor'" href="editAuthor.html">Добавить</a>
+                </div>
+            </div>
+            <div class="error" id="errorDiv"></div>
+            <div id="contentListDiv">
+                <!--div class="listElem" id="contentDiv">
+                    <table class="listElem">
+                        <tr>
+                            <th>ID:</th>
+                            <td>
+                                <a class="contextHref" href="../templates/author.html?id=1">10</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Полное имя:</th>
+                            <td>
+                                <a class="contextHref" href="../templates/author.html?id=1">
+                                    Михаил Афанасьевич Булгаков
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th> Краткое имя:</th>
+                            <td>
+                                <a class="contextHref" href="../templates/author.html?id=1">
+                                    М.А. Булгаков
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div-->
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    loadAuthors();
+</script>
+</body>
+</html>
