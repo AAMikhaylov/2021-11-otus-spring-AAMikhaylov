@@ -1,0 +1,204 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+    color: #2C598C;
+}
+
+h2 {
+    padding: 0;
+    margin: 0;
+    font-style: italic;
+    font-weight: bold;
+    width: 600px;
+    display: inline-block;
+}
+
+div {
+    padding: 0;
+    margin: 0;
+    border: 0 solid black;
+    box-sizing: border-box;
+
+}
+
+div.listElem {
+    margin-top: 0;
+    margin-bottom: 15px;
+    width: 950px;
+    background-color: #FCFCEC;
+    color: black;
+}
+
+table.listElem {
+    width: 100%;
+    padding: 3px 3px 0;
+    border-spacing: 1px;
+}
+
+table.listElem td {
+    padding: 3px 3px 3px 3px;
+    border: 1px solid #F4F4F4;
+}
+
+
+table.listElem th {
+    border: 1px solid #F4F4F4;
+    padding: 3px 3px 3px 8px;
+    width: 180px;
+    text-align: left;
+}
+
+
+div.mainTitle {
+    width: 100%;
+    padding: 20px;
+    background-color: #E5F9FF;
+    font-style: italic;
+    font-weight: bold;
+}
+
+div.menuArea {
+    border-spacing: 0;
+    padding: 0;
+    margin: 0;
+    background-color: #E5F9FF;
+    flex: 0 0 200px;
+
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+div.menuItem {
+    border: thin solid #2C598C;
+    padding: 4px 4px 4px 11px;
+    margin: 3px;
+    float: top;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+div.menuItemSel {
+    border: thin solid #2C598C;
+    padding: 4px 4px 4px 11px;
+    margin: 3px;
+    float: top;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #2C598C;
+    color: white;
+}
+
+div.menuItem:hover {
+    background-color: #2C598C;
+    color: white;
+    cursor: pointer;
+}
+
+
+div.contentArea {
+    padding: 15px;
+    margin: 5px 1px 1px 5px;
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+div.contentHeader {
+    width: 950px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 10px;
+    border-spacing: 0;
+}
+
+div.contextMenuArea {
+    border-spacing: 0;
+    padding: 0;
+    margin: 5px 0 0;
+    width: 700px;
+    display: inline-block;
+
+}
+
+div.contextMenuItem {
+    padding: 0;
+    margin: 0;
+    float: right;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100px;
+    text-align: right;
+    color: #2C598C;
+}
+
+
+div.mainTitle {
+    width: 100%;
+    font-size: 40px;
+    color: #2C598C;
+    text-align: center;
+    border-bottom: 1px solid #2C598C;
+}
+
+.contextMenuHref {
+    color: #2C598C;
+    text-decoration: none;
+}
+
+.contextMenuHref:hover {
+    color: #1d7fe3;
+    text-decoration: none;
+}
+
+/*.contextMenuHref:visited {*/
+/*    color: #2C598C;*/
+/*    text-decoration: none;*/
+/*}*/
+
+.menuHref {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menuHref:hover {
+    color: white;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 0;
+    padding-left: 20px;
+    font-size: 14px;
+}
+
+div.error {
+    color: red;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+.contextHref {
+    text-decoration: none;
+    color: #2C598C;
+    cursor: pointer;
+}
+
+.contextHref:hover {
+    text-decoration: none;
+    color: #1d7fe3;
+}
+
+.commentText {
+    text-align: justify;
+    padding: 3px 16px 3px 8px;
+    text-indent: 20px
+}
