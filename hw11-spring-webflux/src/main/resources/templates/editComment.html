@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Комментарии в библиотеке</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+    <script src="../static/scripts.js" th:src="@{scripts.js}"></script>
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="index.html">
+                <div class="menuItem"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="authors.html">
+                <div class="menuItem"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="genres.html">
+                <div class="menuItem"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="comments.html">
+                <div class="menuItemSel"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <h2 id="contentHeader">Добавление/Редактирование автора</h2>
+            </div>
+            <div class="error" id="errorDiv"></div>
+            <form id="commentForm">
+                <div class="listElem">
+                    <input type="hidden" name="id" value="0">
+                    <input type="hidden" id="bookIdField" name="bookId" value="0">
+                    <table class="listElem">
+                        <tr>
+                            <th>ID:</th>
+                            <td id="comment.id"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="comment.userName">Пользователь:</label></th>
+                            <td>
+                                <input type="text" id="comment.userName" name="userName">
+                                <ul class="error" id="comment.userNameErrors"></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="comment.content">Комментарий:</label></th>
+                            <td>
+                                <textarea id="comment.content" name="content" cols="95" rows="12"></textarea>
+                                <ul class="error" id="comment.contentErrors"></ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="padding-left: 0; padding-top:10px; float: left">
+                    <input type="button" value="Сохранить"
+                           onclick="saveData('comment','commentForm',saveUrl,'/comment')">
+                </div>
+                <div style="padding-left: 5px;padding-top:10px; float: left">
+                    <input type="button" value="Отмена" onclick="history.back()">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    let id = /*[[${id}]]*/ 0;
+    let bookId = /*[[${bookId}]]*/ 0;
+    let comment;
+    let saveUrl = "";
+    if (id !== 0) {
+        contentHeader.innerHTML = "Редактирование комментария";
+        loadData('comment', '/api/comments/' + id)
+            .then(function (result) {
+                comment = result;
+                bookIdField.value = comment.book.id;
+                saveUrl = "/api/comments";
+            });
+    } else {
+        contentHeader.innerHTML = "Добавление комментария";
+        bookIdField.value = bookId;
+        saveUrl = "/api/books/" + bookId + "/comments";
+    }
+</script>
+</body>
+</html>

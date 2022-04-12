@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<!--
+timestamp: [[${timestamp}]]
+path: [[${path}]]
+status: [[${status}]]
+error: [[${error}]]
+exception: [[${exception}]]
+message: [[${message}]]
+stacktrace:
+[[${trace}]]
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Ошибка</title>
+    <link rel="stylesheet" href="../../static/styles.css" th:href="@{styles.css}">
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="../index.html">
+                <div class="menuItem"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="../authors.html">
+                <div class="menuItem"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="../genres.html">
+                <div class="menuItem"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="../comments.html">
+                <div class="menuItem"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <div style="font-size: 20px;font-weight: bold" th:text="|${status} - ${error}|">500 - Internal Server Error</div>
+            </div>
+            <div class="error" th:if="${message}!='No message available'" th:text="${message}">Нельзя удалить автора c ID=1. У автора есть книги.</div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
