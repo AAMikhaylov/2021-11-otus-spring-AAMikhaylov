@@ -1,0 +1,28 @@
+spring:
+  mongodb:
+    embedded:
+      version: 3.5.5
+  data:
+    mongodb:
+      port: 0
+      database: testLibrary
+mongock:
+  runner-type: InitializingBean
+  migration-scan-package:
+    - ru.otus.hw11.changelogs
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
+  enabled: false
+  test-enabled: false
+logging:
+  level:
+    ROOT: info
+server:
+  error:
+    include-message: always
+    include-exception: true
+    include-stacktrace: always
+    include-binding-errors: always
+
