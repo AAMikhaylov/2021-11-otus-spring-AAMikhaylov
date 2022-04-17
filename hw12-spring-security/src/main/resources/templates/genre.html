@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Жанры в библиотеке</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+    <script th:inline="javascript">
+        function confirmDelete() {
+            /*<![CDATA[*/
+            var message = /*[[${genre.name}]]*/ 'Фантастика';
+            result = confirm('Удалить жанр "' + message + '"?');
+            if (result)
+                location.href =/*[[@{/deleteGenre(id=${genre.id})}]]*/ 'genres.html';
+            /*]]>*/
+        }
+    </script>
+
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="index.html">
+                <div class="menuItem"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="authors.html">
+                <div class="menuItem"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="genres.html">
+                <div class="menuItemSel"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="comments.html">
+                <div class="menuItem"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <h2>Жанр</h2>
+                <div class="contextMenuItem" sec:authorize="hasRole('ADMIN')">
+                    <a class="contextMenuHref" th:href="@{/editGenre(id=${genre.id})}" href="editGenre.html">
+                        Изменить
+                    </a>
+                </div>
+                <div class="contextMenuItem" sec:authorize="hasRole('ADMIN')">
+                    <a class="contextMenuHref" onclick="confirmDelete()">Удалить</a></div>
+            </div>
+            <div class="listElem">
+                <table class="listElem">
+                    <tr>
+                        <th> ID:</th>
+                        <td th:text="${genre.id}">10</td>
+                    </tr>
+                    <tr>
+                        <th>Наименование:</th>
+                        <td th:text="${genre.name}">Фантастика</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Книги в библиотеке</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="index.html">
+                <div class="menuItemSel"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="authors.html">
+                <div class="menuItem"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="genres.html">
+                <div class="menuItem"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="comments.html">
+                <div class="menuItem"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <h2>Книги</h2>
+                <div class="contextMenuItem" sec:authorize="hasRole('ADMIN')">
+                    <a class="contextMenuHref" th:href="'/editBook'" href="editBook.html">Добавить</a>
+                </div>
+            </div>
+            <div class="listElem" th:each="book: ${books}">
+                <table class="listElem" th:object="${book}">
+                    <tr>
+                        <th> ID:</th>
+                        <td>
+                            <a class="contextHref" th:href="@{/book(id=*{id})}" href="book.html?id=1" th:text="*{id}">
+                                10
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> Автор:</th>
+                        <td>
+                            <a class="contextHref" th:href="@{/author(id=*{author.id})}" href="author.html?id=1"
+                               th:text="*{author.getShortName()}">
+                                М.А.Булгаков
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> Название:</th>
+                        <td>
+                            <a class="contextHref" th:href="@{/book(id=*{id})}" href="book.html?id=1"
+                               th:text="|&quot;*{title}&quot;|">
+                                "Мастер и Маргарита"
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> Жанр(ы):</th>
+                        <td>
+                            <span th:each="genre,iterStat: *{getGenres()}" style="margin: 0; padding: 0">
+                                <a class="contextMenuHref" th:href="@{/genre(id=${genre.id})}" href="genre.html?id=1"
+                                   th:text="${iterStat.last} ? ${genre.getName()}: ${genre.getName()}+', '">
+                                    Фантастика
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
