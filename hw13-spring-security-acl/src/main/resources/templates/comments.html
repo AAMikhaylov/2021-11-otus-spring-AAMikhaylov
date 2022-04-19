@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Комментарии в библиотеке</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="index.html">
+                <div class="menuItem"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="authors.html">
+                <div class="menuItem"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="genres.html">
+                <div class="menuItem"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="comments.html">
+                <div class="menuItemSel"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <h2>Комментарии</h2>
+            </div>
+            <div class="listElem" th:each="comment: ${comments}">
+                <table class="listElem" th:object="${comment}">
+                    <tr>
+                        <th> ID:</th>
+                        <td>
+                            <a class="contextHref" th:href="@{/comment(id=*{id})}" href="comment.html?id=1"
+                               th:text="*{id}">10</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> Пользователь:</th>
+                        <td th:text="*{userName}">User 1</td>
+                    </tr>
+                    <tr>
+                        <th>Дата:</th>
+                        <td th:text="*{#dates.format(commentDate,'dd-MM-yyyy HH:mm:ss')}">
+                            22-01-2021 23:12:05
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Книга:</th>
+                        <td>
+                            <a class="contextHref" th:href="@{/book(id=*{book.id})}" href="book.html?id=1"
+                               th:text="|${comment.book.author.getShortName()}   &quot;${comment.book.title}&quot;|">
+                                М.А.Булгаков "Мастер и Маргарита"
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="vertical-align: center;">Комментарий:</th>
+                        <td class="commentText" th:text="*{content}">
+                            Если бы меня, как водится, спросили о единственной книге, которую я взяла бы на необитаемый
+                            остров, это, безусловно, была бы эта книга – книга-шедевр, книга-дыхание, книга-сказка. Это
+                            история и любви, и веры, и прощения. Это драма, которая местами комедия. Юмор Булгакова –
+                            это мой юмор, его слова – это слова из моей песни. Хитросплетение сюжетов, прекрасные
+                            параллели между ними, уморительные диа- логи. Герои, которые поражают. Мне нравятся
+                            практически все герои этого романа. Они дополняют друг друга, они невозможны друг без друга.
+                            Единственный, кто всегда вызывал непонимание, раздражение, злость – это сам Мастер, человек,
+                            которому дан талант и который ничего не делает, чтобы этот талант защитить. А безусловный
+                            любимчик – это кот Бегемот. О чудесной идее романа можно говорить бесконечно. Можно, но не
+                            нужно, потому что эту книгу нужно читать. Сначала быстро, за два дня, а потом еще раз, уже
+                            смакуя, снова и снова возвращаясь к одним и тем же строкам, представляя на себе белый плащ с
+                            кровавым подбоем, чувствуя, как в твою кожу втирается крем, пахнущий болотной тиной, или
+                            раскачиваясь на люстре с примусом в лапах…
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
