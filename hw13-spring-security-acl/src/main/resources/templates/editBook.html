@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Книги в библиотеке</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="index.html">
+                <div class="menuItemSel"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="authors.html">
+                <div class="menuItem"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="genres.html">
+                <div class="menuItem"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="comments.html">
+                <div class="menuItem"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <h2 th:text="${book.id==0?'Добавление книги':'Редактирование книги'}">Добавление/Редактирование
+                    книги</h2>
+            </div>
+            <form name="book" th:action="'/saveBook'" action="index.html" method="post"
+                  th:object="${book}">
+                <div class="listElem">
+                    <input type="hidden" name="id" th:value="*{id}" value="1">
+                    <table class="listElem">
+                        <tr th:if="${book.id}!=0">
+                            <th>ID:</th>
+                            <td th:text="${book.id}">10</td>
+                        </tr>
+                        <tr>
+                            <th><label for="id-author">Автор:</label></th>
+                            <td>
+                                <select id="id-author" name="author">
+                                    <option disabled value="0" th:selected="*{author==null or author.id==0}">
+                                        Выберите автора...
+                                    </option>
+                                    <option th:each="author: ${authors}" th:value="${author.id}"
+                                            th:text="${author.getShortName()}"
+                                            th:selected="${book.author}!=null and ${author.id}==${book.author.id}">
+                                        M.A.Булгаков
+                                    </option>
+                                </select>
+                                <ul class="error" th:if="${#fields.hasErrors('author')}">
+                                    <li th:each="err: ${#fields.errors('author')}" th:text="${err}">
+                                        Выберите автора.
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="id-title">Название:</label></th>
+                            <td>
+                                <input type="text" id="id-title" name="title" size="50" th:value="*{title}"
+                                       value="Мастер и Маргарита">
+                                <ul class="error" th:if="${#fields.hasErrors('title')}">
+                                    <li th:each="err: ${#fields.errors('title')}" th:text="${err}">
+                                        Название не должно быть быть пустым
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Жанр(ы)</th>
+                            <td>
+                                <div style="width: 230px;float: left" th:each="genre: ${genres}">
+                                    <input type="checkbox" name="genres" id="ids-genre"
+                                           th:value="${genre.id}" th:id="|id-genre-${genre.id}|"
+                                           th:checked="${book.genres!=null} and  ${#lists.contains(book.genres,genre)}"
+                                    >
+                                    <label for="ids-genre" th:for="|id-genre-${genre.id}|" th:text="${genre.name}">
+                                        Космическая фантастика
+                                    </label>
+                                </div>
+                                <div style="clear: left" th:if="${#fields.hasErrors('genres')}">
+                                    <ul class="error">
+                                        <li th:each="err: ${#fields.errors('genres')}" th:text="${err}">
+                                            Выберите жанр(ы).
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="id-ageRestrict">Возр. ограничение:</label></th>
+                            <td>
+                                <input type="checkbox" name="ageRestrict" id="id-ageRestrict" th:value="true"
+                                       th:checked="*{ageRestrict}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="id-shortContent">Краткое содержание:</label></th>
+                            <td>
+                                <textarea id="id-shortContent" name="shortContent" cols="95" rows="12"
+                                          th:text="*{shortContent}">Краткое содержание книги "Мастер и Маргарита"
+                                </textarea>
+                                <ul class="error" th:if="${#fields.hasErrors('shortContent')}">
+                                    <li th:each="err: ${#fields.errors('shortContent')}" th:text="${err}">
+                                        Длина краткого содержания должно быть не более 1000 символов
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="padding-left: 0; padding-top:10px; float: left">
+                    <input type="submit" value="Сохранить">
+                </div>
+                <div style="padding-left: 5px;padding-top:10px; float: left">
+                    <input type="button" value="Отмена" onclick="history.back()">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
