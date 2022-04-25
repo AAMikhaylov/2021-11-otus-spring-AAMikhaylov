@@ -1,0 +1,35 @@
+spring:
+  main:
+    allow-circular-references: true
+  shell:
+    interactive:
+      enabled: false
+  datasource:
+    url: jdbc:h2:mem:librarydb
+  sql:
+    init:
+      mode: always
+      data-locations: data.sql
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  mongodb:
+    embedded:
+      version: 3.5.5
+  data:
+    mongodb:
+      port: 0
+      database: testLibrary
+  batch:
+    job:
+      enabled: false
+logging:
+  level:
+    ROOT: info
+application:
+  write-page-size: 50
+  read-page-size: 50
+
+

@@ -1,0 +1,31 @@
+spring:
+  main:
+    allow-circular-references: true
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: libDb
+  datasource:
+    url: jdbc:h2:mem:librarydb
+  sql:
+    init:
+      mode: always
+      data-locations: data.sql
+      schema-locations: schema.sql
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  batch:
+    job:
+      enabled: false
+logging:
+  level:
+    ROOT: info
+application:
+  write-page-size: 50
+  read-page-size: 50
+
+
