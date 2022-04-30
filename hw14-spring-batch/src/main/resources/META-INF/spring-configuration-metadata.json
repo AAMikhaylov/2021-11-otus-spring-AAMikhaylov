@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "application.read-page-size",
+      "type": "java.lang.String",
+      "description": "Description for application.read-page-size."
+    },
+    {
+      "name": "application.write-page-size",
+      "type": "java.lang.String",
+      "description": "Description for application.write-page-size."
+    }
+  ] }
