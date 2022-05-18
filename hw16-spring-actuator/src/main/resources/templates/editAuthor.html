@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Авторы в библиотеке</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+    <script src="../static/scripts.js" th:src="@{scripts.js}"></script>
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="index.html">
+                <div class="menuItem"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="authors.html">
+                <div class="menuItemSel"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="genres.html">
+                <div class="menuItem"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="comments.html">
+                <div class="menuItem"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <h2 id="contentHeader">Добавление/Редактирование автора</h2>
+            </div>
+            <div class="error" id="errorDiv"></div>
+            <form id="authorForm">
+                <div class="listElem">
+                    <table class="listElem">
+                        <tr>
+                            <th><label for="author.lastName">Фамилия:</label></th>
+                            <td>
+                                <input type="text" id="author.lastName" name="lastName" size="25">
+                                <ul class="error" id="author.lastNameErrors"></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="author.firstName">Имя:</label></th>
+                            <td>
+                                <input type="text" id="author.firstName" name="firstName" size="25">
+                                <ul class="error" id="author.firstNameErrors"></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="author.middleName">Отчество:</label></th>
+                            <td>
+                                <input type="text" id="author.middleName" name="middleName" size="25">
+                                <ul class="error" id="author.middleNameErrors">
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="padding-left: 0; padding-top:10px; float: left">
+                    <input type="button" value="Сохранить"
+                           onclick="saveData('author','authorForm',httpMethod,saveUrl,'/author')">
+                </div>
+                <div style="padding-left: 5px;padding-top:10px; float: left">
+                    <input type="button" value="Отмена" onclick="history.back()">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    let url = [[${url}]];
+    let saveUrl = '/api/authors';
+    let httpMethod = 'POST';
+    let author;
+
+    if (url != null && url !== "") {
+        contentHeader.innerHTML = "Редактирование автора";
+        loadData("author", url)
+            .then(result => {
+                author = result;
+                saveUrl = author._links.self.href;
+                httpMethod = 'PUT';
+            })
+
+    } else {
+        contentHeader.innerHTML = "Добавление автора";
+    }
+</script>
+</body>
+</html>

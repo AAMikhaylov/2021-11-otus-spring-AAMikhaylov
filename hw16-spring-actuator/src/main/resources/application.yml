@@ -1,0 +1,59 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:librarydb
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+      schema-locations: classpath:schema.sql
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  #    h2:
+  #      console:
+  #        path: /h2-console
+  #        settings:
+  #          web-allow-others: true
+  dao:
+    exceptiontranslation:
+      enabled: true
+  data:
+    rest:
+      basePath: "/api"
+      return-body-on-create: true
+      return-body-on-update: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, logfile, metrics, env, shutdown
+      base-path: /monitor
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    shutdown:
+      enabled: true
+  health:
+
+    defaults:
+      enabled: true
+    diskspace:
+      enabled: true
+
+logging:
+  level:
+    ROOT: info
+  file:
+    name: logs/app.log
+server:
+  error:
+    include-message: always
+    include-exception: true
+    include-stacktrace: always
+    include-binding-errors: always
+

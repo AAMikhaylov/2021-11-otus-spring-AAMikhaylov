@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:librarydb
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+  dao:
+    exceptiontranslation:
+      enabled: true
+logging:
+  level:
+    ROOT: error
+server:
+  error:
+    include-message: always
+    include-exception: true
+    include-stacktrace: always

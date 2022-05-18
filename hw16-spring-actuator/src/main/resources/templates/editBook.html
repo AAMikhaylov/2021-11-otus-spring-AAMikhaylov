@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Книги в библиотеке</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+    <script src="../static/scripts.js" th:src="@{scripts.js}"></script>
+    <script src="../static/loadLists.js" th:src="@{loadLists.js}"></script>
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="index.html">
+                <div class="menuItemSel"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="authors.html">
+                <div class="menuItem"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="genres.html">
+                <div class="menuItem"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="comments.html">
+                <div class="menuItem"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <h2 id="contentHeader">Добавление/Редактирование книги</h2>
+            </div>
+            <div class="error" id="errorDiv"></div>
+            <form id="bookForm">
+                <div class="listElem">
+                    <table class="listElem">
+                        <tr>
+                            <th><label for="book.author">Автор:</label></th>
+                            <td>
+                                <select id="book.author" name="author">
+                                    <option disabled value="0">
+                                        Выберите автора...
+                                    </option>
+                                </select>
+                                <ul class="error" id="book.authorErrors"></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="book.title">Название:</label></th>
+                            <td>
+                                <input type="text" id="book.title" name="title">
+                                <ul class="error" id="book.titleErrors"></ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Жанр(ы)</th>
+                            <td id="genresCell">
+                                <div style="width: 230px;float: left">
+                                    <input type="checkbox" name="genres" id="ids-genre" value="1">
+                                    <label for="ids-genre">
+                                        Космическая фантастика
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="book.shortContent">Краткое содержание:</label></th>
+                            <td>
+                                <textarea id="book.shortContent" name="shortContent" cols="95"
+                                          rows="12"></textarea>
+                                <ul class="error" id="book.shortContentErrors"></ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="padding-left: 0; padding-top:10px; float: left">
+                    <input type="button" value="Сохранить"
+                           onclick="saveData('book','bookForm',httpMethod,saveUrl,'/book')">
+                </div>
+                <div style="padding-left: 5px;padding-top:10px; float: left">
+                    <input type="button" value="Отмена" onclick="history.back()">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    let projectionName='bookExcerpt';
+    let url = [[${url}]];
+    let saveUrl = '/api/books';
+    let httpMethod = 'POST';
+    let book;
+    if (url != null && url !== "") {
+        contentHeader.innerHTML = "Редактирование книги";
+        loadData('book', url+'?projection='+projectionName)
+            .then(function (result) {
+                book = result;
+                saveUrl = book._links.self.href;
+                httpMethod = 'PATCH';
+                loadCheckBoxGenres(book.genres);
+                loadSelectAuthor(book.author._links.self.href.replace('{?projection}',''));
+
+            });
+    } else {
+        contentHeader.innerHTML = "Добавление книги";
+        loadSelectAuthor("");
+        loadCheckBoxGenres(null);
+    }
+</script>
+</body>
+</html>
