@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Авторы в библиотеке</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+    <script src="../static/scripts.js" th:src="@{scripts.js}"></script>
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="index.html">
+                <div class="menuItem"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="authors.html">
+                <div class="menuItemSel"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="genres.html">
+                <div class="menuItem"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="comments.html">
+                <div class="menuItem"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <h2>Автор</h2>
+                <div class="contextMenuItem">
+                    <a class="contextMenuHref" id="changeHref"
+                       href="javascript:location.href='/editAuthor?id='+author.id">
+                        Изменить
+                    </a>
+                </div>
+                <div class="contextMenuItem">
+                    <a class="contextMenuHref" id="deleteHref"
+                       href="javascript:deleteEntity('/api/authors/'+author.id,'/authors','Удалить автора: &quot;'+author.fullName+'&quot;?')">
+                        Удалить
+                    </a>
+                </div>
+            </div>
+            <div class="error" id="errorDiv"></div>
+            <div class="listElem" id="contentDiv">
+                <table class="listElem">
+                    <tr>
+                        <th> ID:</th>
+                        <td id="author.id">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th>Фамилия:</th>
+                        <td id="author.lastName">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th>Имя:</th>
+                        <td id="author.firstName">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th>Отчество:</th>
+                        <td id="author.middleName">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th> Полное имя:</th>
+                        <td id="author.fullName">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th> Краткое имя:</th>
+                        <td id="author.shortName">&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    let author;
+    loadData("author", "/api/authors/" + [[${id}]])
+        .then(result => {
+            author = result;
+        });
+</script>
+</body>
+
+</html>

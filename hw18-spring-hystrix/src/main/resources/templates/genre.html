@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Жанры в библиотеке</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+    <script src="../static/scripts.js" th:src="@{scripts.js}"></script>
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="index.html">
+                <div class="menuItem"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="authors.html">
+                <div class="menuItem"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="genres.html">
+                <div class="menuItemSel"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="comments.html">
+                <div class="menuItem"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <h2>Жанр</h2>
+                <div class="contextMenuItem">
+                    <a class="contextMenuHref" id="changeHref"
+                       href="javascript:location.href='/editGenre?id='+genre.id">
+                        Изменить
+                    </a>
+                </div>
+                <div class="contextMenuItem">
+                    <a class="contextMenuHref"  id="deleteHref"
+                       href="javascript:deleteEntity('/api/genres/'+genre.id,'/genres','Удалить жанр: &quot;'+genre.name+'&quot;?')">Удалить</a>
+                </div>
+            </div>
+            <div class="error" id="errorDiv"></div>
+            <div class="listElem" id="contentDiv">
+                <table class="listElem">
+                    <tr>
+                        <th> ID:</th>
+                        <td id="genre.id"></td>
+                    </tr>
+                    <tr>
+                        <th>Наименование:</th>
+                        <td id="genre.name">N/A</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    let genre;
+    loadData("genre", "/api/genres/" + [[${id}]])
+        .then(result => {
+            genre = result;
+        });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <title>Комментарии в библиотеке</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+    <script src="../static/scripts.js" th:src="@{scripts.js}"></script>
+</head>
+<body>
+<div style="height: 100vh; display: flex; flex-direction: column">
+    <div class="mainTitle">Библиотека</div>
+    <div style="flex: 1 1 auto; overflow:hidden; display:flex; flex-direction: row;">
+        <div class="menuArea">
+            <a th:href="'/'" href="index.html">
+                <div class="menuItem"> Книги</div>
+            </a>
+            <a th:href="'/authors'" href="authors.html">
+                <div class="menuItem"> Авторы</div>
+            </a>
+            <a th:href="'/genres'" href="genres.html">
+                <div class="menuItem"> Жанры</div>
+            </a>
+            <a th:href="'/comments'" href="comments.html">
+                <div class="menuItemSel"> Комментарии</div>
+            </a>
+        </div>
+        <div class="contentArea">
+            <div class="contentHeader">
+                <h2>Комментарий</h2>
+                <div class="contextMenuItem">
+                    <a class="contextMenuHref" id="changeHref" href="javascript:location.href='/editComment?id='+comment.id">
+                        Изменить
+                    </a>
+                </div>
+                <div class="contextMenuItem">
+                    <a class="contextMenuHref" id="deleteHref"
+                       href="javascript:deleteEntity('/api/comments/'+comment.id,'/comments','Удалить Комментарий с ID='+comment.id+'?')">Удалить</a>
+                </div>
+            </div>
+            <div class="error" id="errorDiv"></div>
+            <div class="listElem" id="contentDiv">
+                <table class="listElem">
+                    <tr>
+                        <th> ID:</th>
+                        <td id="comment.id"></td>
+                    </tr>
+                    <tr>
+                        <th> Пользователь:</th>
+                        <td id="comment.userName"></td>
+                    </tr>
+                    <tr>
+                        <th>Дата:</th>
+                        <td id="comment.commentDate"></td>
+                    </tr>
+                    <tr>
+                        <th>Книга:</th>
+                        <td>
+                            <a class="contextHref" id="bookHref"
+                               href="javascript:location.href='/book?id='+comment.book.id">
+
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="vertical-align: center;">Комментарий:</th>
+                        <td class="commentText" id="comment.content"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    let comment;
+    loadData("comment", "/api/comments/" + [[${id}]])
+        .then(function (result) {
+            comment = result;
+            if (comment.book.id === 0) {
+                bookHref.parentElement.innerHTML = "N/A";
+            }
+            else
+                bookHref.innerHTML = comment.book.author.shortName + ' "' + comment.book.title + '"';
+
+        });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:librarydb
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+      schema-locations: classpath:schema.sql
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  dao:
+    exceptiontranslation:
+      enabled: true
+logging:
+  level:
+    ROOT: error
+server:
+  error:
+    include-message: always
+    include-exception: true
+    include-stacktrace: never
+    include-binding-errors: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+hystrix:
+  dashboard:
+    proxyStreamAllowList: "*"
+  command:
+    default:
+      circuitBreaker:
+        requestVolumeThreshold: 10
+        errorThresholdPercentage: 10
+        sleepWindowInMilliseconds: 6
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 15000
+
+#  endpoint:
+#    health:
+#      show-details: always
+#  health:
+#    defaults:
+#      enabled: true
+
